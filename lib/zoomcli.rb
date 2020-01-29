@@ -10,6 +10,8 @@ module Zoomcli
   TOOL_NAME = 'zoomcli'
   ROOT      = File.expand_path('../..', __FILE__)
   LOG_FILE  = '/tmp/zoomcli.log'
+  DATA_DIRECTORY = 'db/'
+
 
   autoload(:EntryPoint, 'zoomcli/entry_point')
   autoload(:Commands,   'zoomcli/commands')

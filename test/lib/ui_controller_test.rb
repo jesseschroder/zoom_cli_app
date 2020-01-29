@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 
-class CommandControllerTest < MiniTest::Unit::TestCase
+class UIControllerTest < MiniTest::Unit::TestCase
   def setup
     # Do nothing
   end

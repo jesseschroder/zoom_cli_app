@@ -1,16 +1,16 @@
 ---
-- title: 'Super Mario Bros. 3'
+- title: "Super Mario Bros. 3"
   release_date: 591840000
-  platform: 'Nintendo Entertainment System'
-- title: 'Legend of Zelda'
+  platform: "Nintendo Entertainment System"
+- title: "Legend of Zelda"
   release_date: 509328000
-  platform: 'Nintendo Entertainment System'
-- title: 'Secret of Mana'
+  platform: "Nintendo Entertainment System"
+- title: "Secret of Mana"
   release_date: 744595200
-  platform: 'Super Nintendo Entertainment System'
-- title: 'Top Gear 2'
+  platform: "Super Nintendo Entertainment System"
+- title: "Top Gear 2"
   release_date: 744336000
-  platform: 'Super Nintendo Entertainment System'
+  platform: "Super Nintendo Entertainment System"
 - title: "The Legend of Zelda: Majora's Mask"
   release_date: 956793600
-  platform: 'Nintendo 64'
+  platform: "Nintendo 64"

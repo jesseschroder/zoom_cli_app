@@ -1,25 +1,20 @@
 require 'minitest/autorun'
+require 'pry'
+require_relative '../../test_helper'
 
-class PlatformTest < MiniTest::Unit::TestCase
+class PlatformTest < MiniTest::Test
   TEST_CASE = {
-    title: 'Super Smash Bros',
-    platform: Platform.new('Nintendo 64'),
-    release: Time.at(916876800),
+    name: 'Test Console',
   }
 
   def setup
-    @valid_model = VideoGame.new(TEST_CASE)
+    @valid_model = Platform.new(TEST_CASE)
   end
 
-  test 'mode properly creates' do
-    assert_instance_of VideoGame, @valid_model
+  def test_create_properly
+    assert_instance_of Platform, @valid_model
   end
-
-  def teardown
-    # Do nothing
-  end
-
-  def test
-    skip 'Not implemented'
+  def test_stuff
+    assert_equal true, true
   end
 end
