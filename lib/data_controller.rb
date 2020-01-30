@@ -1,4 +1,4 @@
-require 'YAML'
+require 'yaml'
 require 'library'
 
 class DataController
@@ -27,6 +27,6 @@ class DataController
   private
 
   def database_names_from_directory(dir)
-    Dir["#{dir}/*.yml"].map { |st| File.basename(st, 's.yml') }
+    Dir["#{dir}/*.yml"].map { |f| File.basename(f, 's.yml') }
   end
 end

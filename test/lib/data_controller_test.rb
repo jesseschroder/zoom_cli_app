@@ -8,7 +8,7 @@ class DataControllerTest < MiniTest::Test
 
   def setup
     write_test_files
-    @data_controller = DataController.new data_dir: TEST_DATA_DIR
+    @data_controller = DataController.new(data_dir: TEST_DATA_DIR)
   end
 
   def test_database_present

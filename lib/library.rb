@@ -10,7 +10,7 @@ class Library
     @data_dir = dir
     db.each { |name| instance_variable_set("@#{name}s", read_and_create(name))}
 
-    instance_variables.each { |var| self.class.send(:attr_reader, var.to_s.delete('@')) }
+    instance_variables.each { |var| self.class.public_send(:attr_reader, var.to_s.delete_prefix('@')) }
   end
   #Skeleton code to be implemented for next task
   #
@@ -34,6 +34,6 @@ class Library
     data = YAML.load_file("#{data_dir + name}s.yml")
     klass = name.split('_').map(&:capitalize).join
 
-    data.map { |args| Class.const_get(klass).new(args) }
+    data.map { |args| Class.const_get(klass).public_send(:new, args) }
   end
 end
