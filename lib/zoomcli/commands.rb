@@ -15,5 +15,7 @@ module Zoomcli
 
     register :Example, 'example', 'zoomcli/commands/example'
     register :Help,    'help',    'zoomcli/commands/help'
+    register :Samples, 'samples', 'zoomcli/commands/samples'
+    register :Run, 'run', 'zoomcli/commands/run'
   end
 end

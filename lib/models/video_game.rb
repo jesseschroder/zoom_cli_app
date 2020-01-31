@@ -1,2 +1,2 @@
-class VideoGame
+class VideoGame < BaseModel
 end
