@@ -1,5 +1,5 @@
 require 'yaml'
-require 'library'
+require_relative 'library'
 
 class DataController
   attr_reader :databases, :library

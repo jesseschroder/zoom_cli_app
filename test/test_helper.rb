@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+require 'simplecov'
+SimpleCov.start
+
 begin
   addpath = lambda do |p|
     path = File.expand_path("../../#{p}", __FILE__)
@@ -9,6 +12,7 @@ end
 
 TEST_DATA_DIR = 'test/fixtures/'
 
+require_relative '../lib/zoomcli'
 require_relative '../lib/models/base_model'
 require_relative '../lib/models/platform'
 require_relative '../lib/models/video_game'

@@ -11,6 +11,7 @@ class Library
     db.each { |name| instance_variable_set("@#{name}s", read_and_create(name))}
 
     instance_variables.each { |var| self.class.public_send(:attr_reader, var.to_s.delete_prefix('@')) }
+    assign_platforms
   end
   #Skeleton code to be implemented for next task
   #
@@ -35,5 +36,14 @@ class Library
     klass = name.split('_').map(&:capitalize).join
 
     data.map { |args| Class.const_get(klass).public_send(:new, args) }
+  end
+
+  def assign_platforms
+    @video_games.each do |game|
+      id = game.platform_id
+      platform = @platforms.select { |p| p.id == id}.flatten
+
+      game.assign_platform(platform)
+    end
   end
 end
