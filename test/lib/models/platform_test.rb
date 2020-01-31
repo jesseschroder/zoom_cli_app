@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'pry'
 require_relative '../../test_helper'
 
 class PlatformTest < MiniTest::Test

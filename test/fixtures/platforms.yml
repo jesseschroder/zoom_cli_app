@@ -1,4 +1,7 @@
 ---
 - name: Nintendo Entertainment System
+  id: 18
 - name: Super Nintendo Entertainment System
+  id: 19
 - name: Nintendo 64
+  id: 4

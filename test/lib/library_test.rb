@@ -16,4 +16,11 @@ class LibraryTest < MiniTest::Test
     assert @library.platforms.any? { |p| p.name == 'Nintendo Entertainment System' }
     assert @library.video_games.any? { |v| v.title == 'Super Mario Bros. 3' }
   end
+
+  def test_video_games_assigned_platform
+    game = @library.video_games.select { |g| g.title == 'Super Mario Bros. 3'}.first
+
+    assert_instance_of Platform, game.platform.first
+    assert_equal game.platform.first.id, 18
+  end
 end
