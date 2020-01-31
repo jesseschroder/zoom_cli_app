@@ -4,7 +4,7 @@ require_relative '../../test_helper'
 class VideoGameTest < MiniTest::Test
   TEST_CASE = {
     title: 'Super Smash Bros',
-    platform: Platform.new('name' => 'Nintendo 64'),
+    platform: [Platform.new('name' => 'Nintendo 64')],
     release: Time.at(916876800),
     platform_id: 4,
   }
@@ -23,6 +23,6 @@ class VideoGameTest < MiniTest::Test
     @valid_model.assign_platform(TEST_PLATFORM)
 
     assert @valid_model.respond_to?(:platform)
-    assert_instance_of Platform, @valid_model.platform
+    assert_instance_of Platform, @valid_model.platform.find { |p| p == TEST_PLATFORM}
   end
 end
