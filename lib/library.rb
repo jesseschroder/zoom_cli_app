@@ -17,6 +17,7 @@ class Library
   def add_game(options = {})
     game = VideoGame.new(options)
     @video_games.push(game)
+    game.assign_platform(platform_by_id(game.platform_id))
     true
   end
 

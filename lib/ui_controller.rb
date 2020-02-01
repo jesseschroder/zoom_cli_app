@@ -13,9 +13,9 @@ module Zoomcli
         CLI::UI::Prompt.ask('Command') do |handler|
           handler.option('List all games')  { puts list }
           handler.option('Add game') { puts new_game }
-          handler.option('Remove game')
-          handler.option('Search games')
-          handler.option('Find new game')
+          handler.option('Remove game') { puts CLI::UI.fmt remove_game }
+          handler.option('Search games') { puts search_game }
+          handler.option('Find new game') { puts CLI::UI.fmt "{{blue:Feature coming soon!}}" }
           handler.option('quit') { end_session }
         end
 
@@ -23,25 +23,58 @@ module Zoomcli
     end
 
     private
-    #Skeleton code to be implemented for next task
-    #
-    #
-    #def list
-    #  CLI::UI::Prompt.ask('Would you like to filter games by platform or list all games?') do |handler|
-    #    handler.option('By platform') { select_platform }
-    #    handler.option('All') { data_interface.list }
-    #
-    #  end
-    #end
-    #
-    #def select_platform
-    #  data_interface.fetch_platforms
-    #end
-    #
-    #def new_game
-    #  "ui here for new game input"
-    #  data_interface.new_item("input")
-    #end
+
+    def list
+      CLI::UI::Frame.open('Choose an option') do
+        CLI::UI::Prompt.ask('Choose an option') do |handler|
+          handler.option('All games') { @data_interface.all_games }
+          handler.option('By Platform') { @data_interface.games_by_platform(ask_platform) }
+        end
+      end
+    end
+
+    def ask_platform
+      platforms = @data_interface.all_platforms
+      CLI::UI::Frame.open('Choose an option') do
+        CLI::UI::Prompt.ask('Choose an platform') do |handler|
+          platforms.each do |platform|
+            handler.option(platform[:name]) { platform[:id] }
+          end
+        end
+      end
+    end
+
+    def new_game
+      CLI::UI::Frame.open('Choose an option') do
+        name = ask_title
+        date = Time.new(ask_date).to_i
+        while date < 0
+          date = Time.new(ask_date).to_i
+        end
+        platform = ask_platform
+        @data_interface.add_game(name, date, platform)
+      end
+    end
+
+    def remove_game
+      CLI::UI::Frame.open('Choose an option') do
+        @data_interface.remove_game(ask_title)
+      end
+    end
+
+    def search_game
+      CLI::UI::Frame.open('Choose an option') do
+        @data_interface.find_game(ask_title)
+      end
+    end
+
+    def ask_title
+      CLI::UI.ask('Enter a title for the game', default: 'Default')
+    end
+
+    def ask_date
+      CLI::UI.ask('Enter a release date for the game (use YYYY-MM-DD)')
+    end
 
     def end_session
       @active = false

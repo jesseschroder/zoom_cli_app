@@ -1,0 +1,8 @@
+<% @games.each do |game| %>
+  Title <%= game.title %>
+  Release Date: <%=  Time.at(game.release_date).strftime('%B %d, %Y')  %>
+  Platforms: <% game.platform.each do |platform| %>
+    <%= platform.name %>
+  <% end %>
+  --------------------------------------------------
+<% end %>
