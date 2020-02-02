@@ -12,22 +12,26 @@ class Library
 
     instance_variables.each { |var| self.class.public_send(:attr_reader, var.to_s.delete_prefix('@')) }
     assign_platforms
+
+    @db_writer = YamlGem.new(dir)
   end
 
   def add_game(options = {})
     game = VideoGame.new(options)
     @video_games.push(game)
     game.assign_platform(platform_by_id(game.platform_id))
+
+    @db_writer.save(options, :video_games)
     true
   end
 
   def remove_game(title)
-    if by_title(@video_games, title).empty?
-      return false
-    else
-      @video_games.delete_if { |g| g.title == title}
-    end
-    true
+    to_delete = by_title(@video_games, title)
+    return false if to_delete.empty?
+
+    delete_data = to_delete.map(&:to_hsh)
+    @db_writer.remove(delete_data, :video_games)
+    true if @video_games.delete_if { |g| g.title == title}
   end
 
   def find_game(title)
@@ -35,7 +39,7 @@ class Library
   end
 
   def all(var)
-    self.public_send(var)
+    public_send(var)
   end
 
   def by_platform(platform)
@@ -47,22 +51,15 @@ class Library
   end
 
   def add_platform(options = {})
-    if platform_by_id(options.fetch('id', 0))
-      return false
-    else
-      platform = Platform.new(options)
-      @platforms.push(platform)
-    end
-    true
+    return false if platform_by_id(options.fetch('id', 0))
+
+    platform = Platform.new(options)
+    true if @platforms.push(platform)
   end
 
   def remove_platform(id)
-    unless platform_by_id(id)
-      return false
-    else
-      @platforms.delete_if { |p| p.id == id }
-    end
-    true
+    return false unless platform_by_id(id)
+    true if @platforms.delete_if { |p| p.id == id }
   end
 
   private

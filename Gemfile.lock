@@ -1,3 +1,8 @@
+PATH
+  remote: /Users/jesseschroder/projects/ruby/yamlgem
+  specs:
+    yamlgem (0.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -53,6 +58,7 @@ DEPENDENCIES
   pry
   rubocop
   simplecov
+  yamlgem!
 
 BUNDLED WITH
    2.1.2
