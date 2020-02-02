@@ -1,4 +1,6 @@
+require_relative 'model'
 class BaseModel
+  include Model
 
   def initialize(options = {})
     options.each { |key, value| instance_variable_set("@#{key}", value) }

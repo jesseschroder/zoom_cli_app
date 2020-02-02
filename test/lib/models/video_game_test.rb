@@ -21,8 +21,9 @@ class VideoGameTest < MiniTest::Test
 
   def test_assign_platform
     @valid_model.assign_platform(TEST_PLATFORM)
+    platform = @valid_model.platform.find { |p| p == TEST_PLATFORM}
 
     assert @valid_model.respond_to?(:platform)
-    assert_instance_of Platform, @valid_model.platform.find { |p| p == TEST_PLATFORM}
+    assert_instance_of Platform, platform
   end
 end

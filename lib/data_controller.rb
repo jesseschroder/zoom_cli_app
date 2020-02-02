@@ -1,6 +1,7 @@
 require 'yaml'
 require 'erb'
 require_relative 'library'
+require 'yamlgem'
 
 class DataController
   attr_reader :databases, :library
@@ -8,6 +9,7 @@ class DataController
   def initialize(data_dir: Zoomcli::DATA_DIRECTORY)
     @databases = database_names_from_directory(data_dir)
     @library = Library.new(databases, data_dir)
+    YamlGem.say_hi
   end
 
   def all_games
