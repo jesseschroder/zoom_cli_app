@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'time'
 
 module Zoomcli
@@ -17,12 +18,11 @@ module Zoomcli
         CLI::UI::Prompt.ask('Command') do |handler|
           handler.option('List all games')  { puts list }
           handler.option('Add game') { puts new_game }
-          handler.option('Remove game') { puts CLI::UI.fmt remove_game }
+          handler.option('Remove game') { puts CLI::UI.fmt(remove_game) }
           handler.option('Search games') { puts search_game }
-          handler.option('Find new game') { puts CLI::UI.fmt "{{blue:Feature coming soon!}}" }
+          handler.option('Find new game') { puts CLI::UI.fmt("{{blue:Feature coming soon!}}") }
           handler.option('quit') { end_session }
         end
-
       end
     end
 
@@ -92,10 +92,10 @@ module Zoomcli
     def ask_and_rescue
       yield
     rescue InvalidInput
-      puts CLI::UI.fmt '{{red:INVALID INPUT!!! Try again}}'
+      puts CLI::UI.fmt('{{red:INVALID INPUT!!! Try again}}')
       ask_and_rescue { title }
     rescue InvalidDate && ArgumentError
-      puts CLI::UI.fmt '{{red::INVALID DATE!!! Try again}}'
+      puts CLI::UI.fmt('{{red::INVALID DATE!!! Try again}}')
       ask_and_rescue { date }
     end
   end

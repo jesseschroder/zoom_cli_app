@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'minitest/autorun'
 require_relative '../../test_helper'
 
@@ -11,9 +12,10 @@ class PlatformTest < MiniTest::Test
   end
 
   def test_create_properly
-    assert_instance_of Platform, @valid_model
+    assert_instance_of(Platform, @valid_model)
   end
+
   def test_stuff
-    assert_equal true, true
+    assert_equal(true, true)
   end
 end

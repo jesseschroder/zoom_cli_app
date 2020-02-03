@@ -6,7 +6,6 @@ require 'ui_controller'
 module Zoomcli
   module Commands
     class Run < Zoomcli::Command
-
       def call(_args, _name)
         CLI::UI::StdoutRouter.enable
         CLI::UI::Frame.open('Program Running') do
@@ -15,9 +14,7 @@ module Zoomcli
           load_data
 
           puts 'Welcome! Please follow the prompts below.'
-          while ui.active
-            ui.main_menu
-          end
+          ui.main_menu while ui.active
         end
       end
 
@@ -35,7 +32,6 @@ module Zoomcli
       end
 
       class << self
-
         def help
           "I will make stuff one day."
         end

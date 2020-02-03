@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'yaml'
 require 'erb'
 require_relative 'library'
@@ -13,8 +14,8 @@ class DataController
   end
 
   def all_games
-    @games = @library.all :video_games
-    erb :video_game_list
+    @games = @library.all(:video_games)
+    erb(:video_game_list)
   end
 
   def all_platforms
@@ -28,7 +29,7 @@ class DataController
 
   def games_by_platform(id)
     @games = @library.by_platform(@library.platform_by_id(id))
-    erb :video_game_list
+    erb(:video_game_list)
   end
 
   def add_game(name, date, platform)
@@ -45,7 +46,7 @@ class DataController
 
   def find_game(title)
     @games = @library.find_game(title)
-    erb :video_game_list
+    erb(:video_game_list)
   end
 
   private
@@ -55,7 +56,7 @@ class DataController
   end
 
   def erb(template)
-    template_file = File.read("lib/views/#{template.to_s}.html.erb")
+    template_file = File.read("lib/views/#{template}.html.erb")
     ERB.new(template_file).result(binding)
 
   rescue SystemCallError
