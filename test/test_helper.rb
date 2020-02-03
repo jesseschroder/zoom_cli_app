@@ -38,11 +38,8 @@ require 'mocha/minitest'
 
 MiniTest::Reporters.use!
 
-
 def write_test_files
   test_file = File.new("#{TEST_DATA_DIR}tests.yml", 'w')
-  test_file.puts [{'test' => 'test'}].to_yaml
+  test_file.puts [{ 'test' => 'test' }].to_yaml
   test_file.close
 end
-
-

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require_relative 'models/base_model'
 require_relative 'models/video_game'
 require_relative 'models/platform'
@@ -8,7 +9,7 @@ class Library
 
   def initialize(db, dir)
     @data_dir = dir
-    db.each { |name| instance_variable_set("@#{name}s", read_and_create(name))}
+    db.each { |name| instance_variable_set("@#{name}s", read_and_create(name)) }
 
     instance_variables.each { |var| self.class.public_send(:attr_reader, var.to_s.delete_prefix('@')) }
     assign_platforms
@@ -31,7 +32,7 @@ class Library
 
     delete_data = to_delete.map(&:to_hsh)
     @db_writer.remove(delete_data, :video_games)
-    true if @video_games.delete_if { |g| g.title == title}
+    true if @video_games.delete_if { |g| g.title == title }
   end
 
   def find_game(title)
@@ -43,11 +44,11 @@ class Library
   end
 
   def by_platform(platform)
-    @video_games.select { |g| g.platform.any? platform }
+    @video_games.select { |g| g.platform.any?(platform) }
   end
 
   def platform_by_id(id)
-    @platforms.find { |p| p.id == id}
+    @platforms.find { |p| p.id == id }
   end
 
   def add_platform(options = {})
@@ -65,7 +66,7 @@ class Library
   private
 
   def by_title(collection, title)
-    collection.select { |i| i.title == title}
+    collection.select { |i| i.title == title }
   end
 
   def read_and_create(name)
@@ -78,7 +79,7 @@ class Library
   def assign_platforms
     @video_games.each do |game|
       id = game.platform_id
-      platform = @platforms.find { |p| p.id == id}
+      platform = @platforms.find { |p| p.id == id }
 
       game.assign_platform(platform)
     end

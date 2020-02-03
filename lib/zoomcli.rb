@@ -12,7 +12,6 @@ module Zoomcli
   LOG_FILE  = '/tmp/zoomcli.log'
   DATA_DIRECTORY = 'db/'
 
-
   autoload(:EntryPoint, 'zoomcli/entry_point')
   autoload(:Commands,   'zoomcli/commands')
 

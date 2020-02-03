@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'minitest/autorun'
 
 class UIControllerTest < MiniTest::Test
@@ -10,6 +11,6 @@ class UIControllerTest < MiniTest::Test
   end
 
   def test
-    skip 'Not implemented'
+    skip('Not implemented')
   end
 end
