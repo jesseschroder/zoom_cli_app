@@ -1,6 +1,10 @@
+require 'time'
 
 module Zoomcli
   class UIController
+    class InvalidInput < StandardError; end
+    class InvalidDate < StandardError; end
+
     attr_reader :data_interface, :active
 
     def initialize(data_interface)
@@ -36,7 +40,7 @@ module Zoomcli
     def ask_platform
       platforms = @data_interface.all_platforms
       CLI::UI::Frame.open('Choose an option') do
-        CLI::UI::Prompt.ask('Choose an platform') do |handler|
+        CLI::UI::Prompt.ask('Choose a platform') do |handler|
           platforms.each do |platform|
             handler.option(platform[:name]) { platform[:id] }
           end
@@ -46,38 +50,53 @@ module Zoomcli
 
     def new_game
       CLI::UI::Frame.open('Choose an option') do
-        name = ask_title
-        date = Time.new(ask_date).to_i
-        while date < 0
-          date = Time.new(ask_date).to_i
-        end
+        name = ask_and_rescue { title }
+        date = ask_and_rescue { date }
         platform = ask_platform
+
         @data_interface.add_game(name, date, platform)
       end
     end
 
     def remove_game
       CLI::UI::Frame.open('Choose an option') do
-        @data_interface.remove_game(ask_title)
+        @data_interface.remove_game(title)
       end
     end
 
     def search_game
       CLI::UI::Frame.open('Choose an option') do
-        @data_interface.find_game(ask_title)
+        @data_interface.find_game(title)
       end
     end
 
-    def ask_title
-      CLI::UI.ask('Enter a title for the game', default: 'Default')
+    def title
+      input = CLI::UI.ask('Enter a title for the game')
+      raise InvalidInput if input.empty? || input == ' '
+
+      input
     end
 
-    def ask_date
-      CLI::UI.ask('Enter a release date for the game (use YYYY-MM-DD)')
+    def date
+      input = CLI::UI.ask('Enter a release date for the game (use YYYY-MM-DD)')
+      date = Time.parse(input)
+      raise InvalidDate if date.nil? || date.to_i < 0
+
+      date.to_i
     end
 
     def end_session
       @active = false
+    end
+
+    def ask_and_rescue
+      yield
+    rescue InvalidInput
+      puts CLI::UI.fmt '{{red:INVALID INPUT!!! Try again}}'
+      ask_and_rescue { title }
+    rescue InvalidDate && ArgumentError
+      puts CLI::UI.fmt '{{red::INVALID DATE!!! Try again}}'
+      ask_and_rescue { date }
     end
   end
 end
